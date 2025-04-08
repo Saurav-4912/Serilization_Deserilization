@@ -1,0 +1,102 @@
+
+
+// Serialization :  It is process of converting java object into binary form 
+                    and it is stored in database Or file.
+                    
+// Deserialization : The reverse operation of serialization is called deserialization, 
+                     where the byte stream is converted into an object. 
+===========================================================================================================================	
+
+ When we use JDBC, we do not implement the Serializable interface because JDBC directly
+ stores data into the database, and it takes around 9 nanoseconds to save a record.
+
+However, when we use Hibernate, it requires the object in a binary form, which is why the class must implement
+the Serializable interface.Hibernate is faster and can save a record in approximately 3 nanoseconds.
+  
+===========================================================================================================================	
+
+ java object convert into binary this process handle JVM , we do not need to manually.
+
+===========================================================================================================================	
+ 
+  we have to convert java object into binary then we have to implement Serializable interface.
+  
+  class Student implements Serializable 
+  {
+  
+  }
+  
+  Serializable is a marker interface.(Mark karun thevaych mhnje jvm la samjnyasathi ki ha marker interface ahe).
+  
+  It has no any method.
+  
+  jya interface madhe ek pn method nasti tyala marker interface mhnatat.
+  
+===========================================================================================================================	
+ 
+  	private static final long serialVersionUID = 1L; ?
+  	
+private :
+==========
+          Means only this class can use this variable.
+          We don’t want other classes to access or change it, so we keep it private
+           
+static : 
+=========
+          1. Belongs to the class, not instances of the class.
+          2. This means there's only one copy of serialVersionUID, shared across all objects of that class.
+          3. It must be static because the Java serialization mechanism doesn't instantiate an object to access this ID.
+          4. Means this variable belongs to the class, not to the object.
+          5. We don’t need to create an object to use it.
+          
+final:
+=======
+         1. Means you can’t change the value once it is set.
+         2. So serialVersionUID = 1L will always stay the same.
+
+ ===========================================================================================================================	
+  Q. What is marker interface?
+ --> 1. A Marker Interface in java is an interface that doesn't declare any methods or constant within it.
+     2. Instead , it serves as a marker to the compiler or runtime environment , indicating that
+        classes implementing this interface should be treated differently or have certain behaviour.
+     3. The presence of the interface itself is sufficient to convey some information to the system.
+
+==========================================================================================
+  
+ Transient keyword:
+ Do not save this variable when the object is being serialized.
+ If a variable is marked as transient, it will be skipped during serialization.
+ 
+==========================================================================================
+
+Q.  Why do we use it?
+
+Sometimes, we don’t want to save everything in an object.
+
+For example:
+
+1. Sensitive data like passwords
+
+2. Temporary values like calculated fields
+
+3. Big data that can be recomputed later
+
+==========================================================================================
+
+import java.io.Serializable;
+public class User implements Serializable {
+    private String username;
+    private transient String password; // this will not be saved
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+}
+  
+  
+  
+  
+  
+  
+  
